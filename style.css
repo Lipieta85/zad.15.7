@@ -1,0 +1,18 @@
+body {
+    background-color: #607D8B;
+    text-align: center;
+    padding: 100px;
+}
+
+.controls .button {
+    color: #BABABA;
+    font-size: 50px;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.stopWatch {
+    color: #BABABA;
+    font-size: 80px;
+    padding: 5px;
+}
