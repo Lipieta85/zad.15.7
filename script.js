@@ -51,33 +51,22 @@ class StopWatch extends React.Component {
     }
 
     calculate = () => {
+        if (!this.state.running) return;
+        const times = this.state.times;
+
+        times.miliseconds += 1;
+        if (times.miliseconds >= 100) {
+            times.seconds += 1;
+            times.miliseconds = 0;
+        }
+        if (times.seconds >= 60) {
+            times.minutes += 1;
+            times.seconds = 0;
+        }
+
         this.setState({
-            times: {
-                minutes: this.state.times.minutes,
-                seconds: this.state.times.seconds,
-                miliseconds: this.state.times.miliseconds + 1
-            }
-        });
-
-        if (this.state.times.miliseconds >= 100) {
-            this.setState({
-                times: {
-                    minutes: this.state.times.minutes,
-                    seconds: this.state.times.seconds + 1,
-                    miliseconds: 0
-                }
-            });
-        }
-
-        if (this.state.times.seconds >= 60) {
-            this.setState({
-                times: {
-                    minutes: this.state.times.minutes + 1,
-                    seconds: 0,
-                    miliseconds: this.state.times.miliseconds
-                }
-            });
-        }
+            times
+        })
     }
 
     stop = () => {
@@ -95,11 +84,11 @@ class StopWatch extends React.Component {
 
     render = () => {
         return (
-            <div className={'controls'}>
+            <div className="controls">
                 <nav>
-                    <a href={'#'} className={'button'} id={'start'} onClick={() => this.start()}>Start</a>
-                    <a href={'#'} className={'button'} id={'stop'} onClick={() => { this.stop() }}>Stop</a>
-                    <a href={'#'} className={'button'} id={'reset'} onClick={() => this.resetStoper()}>Reset</a>
+                    <a href="#" className="button" id="start" onClick={() => this.start()}>Start</a>
+                    <a href="#" className="button" id="stop" onClick={() => this.stop()}>Stop</a>
+                    <a href="#" className="button" id="reset" onClick={() => this.resetStoper()}>Reset</a>
                 </nav>
                 <Display time={this.format()}></Display>
             </div>
@@ -124,6 +113,6 @@ class Display extends React.Component {
     }
 }
 
-var element = React.createElement(StopWatch);
 
-ReactDOM.render(element, document.getElementById('app'));
+
+ReactDOM.render(<StopWatch />, document.getElementById('app'));

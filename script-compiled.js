@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -39,7 +39,7 @@ var StopWatch = function (_React$Component) {
             var minutes = _this.state.times.minutes;
             var seconds = _this.state.times.seconds;
             var miliseconds = _this.state.times.miliseconds;
-            return _this.pad0(minutes) + ':' + _this.pad0(seconds) + ':' + _this.pad0(Math.floor(miliseconds));
+            return _this.pad0(minutes) + ":" + _this.pad0(seconds) + ":" + _this.pad0(Math.floor(miliseconds));
         };
 
         _this.start = function () {
@@ -57,33 +57,22 @@ var StopWatch = function (_React$Component) {
         };
 
         _this.calculate = function () {
+            if (!_this.state.running) return;
+            var times = _this.state.times;
+
+            times.miliseconds += 1;
+            if (times.miliseconds >= 100) {
+                times.seconds += 1;
+                times.miliseconds = 0;
+            }
+            if (times.seconds >= 60) {
+                times.minutes += 1;
+                times.seconds = 0;
+            }
+
             _this.setState({
-                times: {
-                    minutes: _this.state.times.minutes,
-                    seconds: _this.state.times.seconds,
-                    miliseconds: _this.state.times.miliseconds + 1
-                }
+                times: times
             });
-
-            if (_this.state.times.miliseconds >= 100) {
-                _this.setState({
-                    times: {
-                        minutes: _this.state.times.minutes,
-                        seconds: _this.state.times.seconds + 1,
-                        miliseconds: 0
-                    }
-                });
-            }
-
-            if (_this.state.times.seconds >= 60) {
-                _this.setState({
-                    times: {
-                        minutes: _this.state.times.minutes + 1,
-                        seconds: 0,
-                        miliseconds: _this.state.times.miliseconds
-                    }
-                });
-            }
         };
 
         _this.stop = function () {
@@ -101,31 +90,31 @@ var StopWatch = function (_React$Component) {
 
         _this.render = function () {
             return React.createElement(
-                'div',
-                { className: 'controls' },
+                "div",
+                { className: "controls" },
                 React.createElement(
-                    'nav',
+                    "nav",
                     null,
                     React.createElement(
-                        'a',
-                        { href: '#', className: 'button', id: 'start', onClick: function onClick() {
+                        "a",
+                        { href: "#", className: "button", id: "start", onClick: function onClick() {
                                 return _this.start();
                             } },
-                        'Start'
+                        "Start"
                     ),
                     React.createElement(
-                        'a',
-                        { href: '#', className: 'button', id: 'stop', onClick: function onClick() {
-                                _this.stop();
+                        "a",
+                        { href: "#", className: "button", id: "stop", onClick: function onClick() {
+                                return _this.stop();
                             } },
-                        'Stop'
+                        "Stop"
                     ),
                     React.createElement(
-                        'a',
-                        { href: '#', className: 'button', id: 'reset', onClick: function onClick() {
+                        "a",
+                        { href: "#", className: "button", id: "reset", onClick: function onClick() {
                                 return _this.resetStoper();
                             } },
-                        'Reset'
+                        "Reset"
                     )
                 ),
                 React.createElement(Display, { time: _this.format() })
@@ -157,7 +146,7 @@ var Display = function (_React$Component2) {
     }
 
     _createClass(Display, [{
-        key: 'render',
+        key: "render",
         value: function render() {
             return React.createElement('div', { className: 'stopWatch' }, this.props.time);
         }
@@ -171,6 +160,4 @@ Display.propTypes = {
 };
 
 
-var element = React.createElement(StopWatch);
-
-ReactDOM.render(element, document.getElementById('app'));
+ReactDOM.render(React.createElement(StopWatch, null), document.getElementById('app'));
