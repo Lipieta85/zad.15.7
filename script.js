@@ -108,11 +108,11 @@ class Display extends React.Component {
 
     render() {
         return (
-            React.createElement('div', { className: 'stopWatch' }, this.props.time)
+            <div className="stopWatch">
+                {this.props.time}
+            </div>
         );
     }
 }
-
-
 
 ReactDOM.render(<StopWatch />, document.getElementById('app'));

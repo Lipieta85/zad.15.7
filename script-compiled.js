@@ -148,7 +148,11 @@ var Display = function (_React$Component2) {
     _createClass(Display, [{
         key: "render",
         value: function render() {
-            return React.createElement('div', { className: 'stopWatch' }, this.props.time);
+            return React.createElement(
+                "div",
+                { className: "stopWatch" },
+                this.props.time
+            );
         }
     }]);
 
